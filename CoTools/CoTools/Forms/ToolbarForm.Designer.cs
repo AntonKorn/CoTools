@@ -15,6 +15,7 @@
         {
             _toolbarService.LocationChanged -= OnLocationChanged;
             _toolbarService.BecameVisible -= OnBecameVisible;
+            _toolbarService.BecameInvisible -= OnBecameInvisible;
 
             _toolbarService.Dispose();
             _dependencyInjectionContext.Dispose();

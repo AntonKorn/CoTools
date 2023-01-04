@@ -27,6 +27,7 @@ namespace CoTools.Forms
             _toolbarService = _dependencyInjectionContext.ServiceProvider.GetService<IToolbarService>()!;
             _toolbarService.LocationChanged += OnLocationChanged;
             _toolbarService.BecameVisible += OnBecameVisible;
+            _toolbarService.BecameInvisible += OnBecameInvisible;
 
             _toolRegistry = _dependencyInjectionContext.ServiceProvider.GetService<IToolRegistry>()!;
 
@@ -94,6 +95,11 @@ namespace CoTools.Forms
         private void OnBecameVisible()
         {
             Show();
+        }
+
+        private void OnBecameInvisible()
+        {
+            Hide();
         }
 
         private void OnLocationChanged()

@@ -44,9 +44,9 @@
             this.pbCanvas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbCanvas.Location = new System.Drawing.Point(12, 36);
+            this.pbCanvas.Location = new System.Drawing.Point(12, 12);
             this.pbCanvas.Name = "pbCanvas";
-            this.pbCanvas.Size = new System.Drawing.Size(776, 402);
+            this.pbCanvas.Size = new System.Drawing.Size(776, 426);
             this.pbCanvas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbCanvas.TabIndex = 0;
             this.pbCanvas.TabStop = false;

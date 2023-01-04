@@ -22,6 +22,9 @@ namespace CoTools.Services.Impl
 
         public event Action? LocationChanged;
         public event Action? BecameVisible;
+        public event Action? BecameInvisible;
+
+        private bool _isForcedInvisible;
 
         public ToolbarService(
             IEventService eventService,
@@ -43,7 +46,7 @@ namespace CoTools.Services.Impl
             {
                 _libUser32.UnhookWinEvent(_windowHook.Value);
             }
-            else
+            else if (!_isForcedInvisible)
             {
                 BecameVisible?.Invoke();
             }
@@ -75,6 +78,23 @@ namespace CoTools.Services.Impl
         public void StopDrag()
         {
             _windowStateService.Update(_chasedWindow, StateEntryKinds.ToolbarOffset, _offset);
+        }
+
+        public void Show()
+        {
+            _isForcedInvisible = false;
+
+            var isListeningForWindow = _windowHook.HasValue;
+            if (isListeningForWindow)
+            {
+                BecameVisible?.Invoke();
+            }
+        }
+
+        public void Hide()
+        {
+            _isForcedInvisible = true;
+            BecameInvisible?.Invoke();
         }
 
         public void Dispose()

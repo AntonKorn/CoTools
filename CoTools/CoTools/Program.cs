@@ -10,6 +10,7 @@ using CoTools.Modularization;
 using CoTools.Common;
 using CoTools.Common.DependencyInjection.Impl;
 using CoTools.Modularization.Models;
+using CoTools.Services;
 
 namespace CoTools
 {
@@ -44,11 +45,12 @@ namespace CoTools
             var services = new ServiceCollection();
             RegisterServices(services);
 
-            ConfigureDefaultMenuOptions();
-
             var tools = InitializeTools(services);
 
-            var context = new ControlDependencyInjectionContext(services.BuildServiceProvider());
+            var provider = services.BuildServiceProvider();
+            var context = new ControlDependencyInjectionContext(provider);
+
+            ConfigureDefaultMenuOptions(provider);
 
             foreach (var tool in tools)
             {
@@ -60,13 +62,39 @@ namespace CoTools
             Application.Run(rootWindow);
         }
 
-        private static void ConfigureDefaultMenuOptions()
+        private static void ConfigureDefaultMenuOptions(IServiceProvider provider)
         {
             _trayMenu.Items.Clear();
+
             _trayMenu.Items.Add("Exit", null, new EventHandler((object? sender, EventArgs e) =>
             {
                 _trayMenu.Dispose();
                 Application.Exit();
+            }));
+
+            var hideText = "Hide toolbar";
+            var showText = "Show toolbar";
+            var isHidden = false;
+
+            _trayMenu.Items.Add("Hide toolbar", null, new EventHandler((object? sender, EventArgs e) =>
+            {
+                var item = sender as ToolStripItem;
+
+                isHidden = !isHidden;
+                if (item != null)
+                {
+                    item.Text = isHidden ? showText : hideText;
+
+                    var toolbarService = provider.GetService<IToolbarService>()!;
+                    if (isHidden)
+                    {
+                        toolbarService.Hide();
+                    }
+                    else
+                    {
+                        toolbarService.Show();
+                    }
+                }
             }));
         }
 
@@ -113,7 +141,7 @@ namespace CoTools
 
             AddMenuSeparator();
 
-            foreach(var menuItem in tool.MenuItems)
+            foreach (var menuItem in tool.MenuItems)
             {
                 _trayMenu.Items.Add(menuItem.Name, null, new EventHandler((object? sender, EventArgs e) =>
                 {

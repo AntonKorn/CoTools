@@ -2,13 +2,18 @@
 {
     public interface IToolbarService : IDisposable
     {
-        public event Action? LocationChanged;
+        event Action? LocationChanged;
         event Action? BecameVisible;
+        event Action? BecameInvisible;
 
-        public Point Location { get; }
+        Point Location { get; }
 
-        public void Drag(int deltaX, int deltaY);
+        void Drag(int deltaX, int deltaY);
 
-        public void StopDrag();
+        void StopDrag();
+
+        void Show();
+
+        void Hide();
     }
 }

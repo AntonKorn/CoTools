@@ -9,7 +9,7 @@ namespace CoTools.Extensions
     {
         public static void AddClient(this IServiceCollection services)
         {
-            services.AddScoped<IToolbarService, ToolbarService>();
+            services.AddSingleton<IToolbarService, ToolbarService>();
             services.AddSingleton<IToolRegistry>(new ToolRegistry());
         }
     }
