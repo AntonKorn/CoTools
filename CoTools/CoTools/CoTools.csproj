@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="co_tools.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="co_tools.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoTools.Common\CoTools.Common.csproj" />
+    <ProjectReference Include="..\CoTools.Core\CoTools.Native.csproj" />
+    <ProjectReference Include="..\CoTools.Modularization\CoTools.Modularization.csproj" />
+    <ProjectReference Include="..\CoTools.Module.Default\CoTools.Module.Default.csproj" />
+  </ItemGroup>
+
+</Project>
